@@ -4,15 +4,16 @@ import java.util.Random;
 
 public class Package implements Runnable {
     private final int id;
-    private StringBuffer info;
-    // private int size;
+    private final String info;
+    private final int size;
     
     private final int sleepTime;
     private final static Random generator = new Random();
     
-    public Package(StringBuffer information) {
+    public Package(String information) {
         id = 1;
         info = information;
+        size = info.length();
         sleepTime = generator.nextInt(5000); // milliseconds
     }
     

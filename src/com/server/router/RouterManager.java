@@ -8,14 +8,11 @@ import com.server.packages.Package;
 public class RouterManager {
     
     public static void main(String[] args) {
-        Package pack1 = new Package(new StringBuffer("small task 1"));
-        Package pack2 = new Package(new StringBuffer("small task 2"));
-        Package pack3 = new Package(
-                new StringBuffer("very big and huge task 1"));
+        Package pack1 = new Package("small task 1");
+        Package pack2 = new Package("small task 2");
+        Package pack3 = new Package("very big and huge task 1");
         
         System.out.println("Starting Executor");
-        
-        // create ExecutorService to manage threads
         ExecutorService threadExecutor = Executors.newCachedThreadPool();
         
         // start threads and place in runnable state
@@ -25,8 +22,6 @@ public class RouterManager {
         
         // shut down worker threads when their tasks complete
         threadExecutor.shutdown();
-        
         System.out.println("main ends.\n");
     }
-    
 }
