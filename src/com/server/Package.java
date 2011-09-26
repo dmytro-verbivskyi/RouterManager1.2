@@ -16,19 +16,20 @@ public class Package implements Comparable<Package>, Runnable {
         Random r = new Random();
         TimeUnit t = TimeUnit.MILLISECONDS;
         
-        try {
+        try { // simulation of delays in pushing packages
             t.sleep(r.nextInt() % 10000);
         } catch ( InterruptedException e ) {
             e.printStackTrace();
         }
-        RouterManager.queue.add(new Package(info));
+        // putting into a queue
+        RouterManager.queue.add(this);
     }
     
-    public int compareTo(Package f) {
-        if ( f.size > size )
+    public int compareTo(Package other) {
+        if ( other.size > size )
             return -1;
         
-        if ( size > f.size )
+        if ( size > other.size )
             return 1;
         
         return 0;

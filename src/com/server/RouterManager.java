@@ -11,21 +11,12 @@ public class RouterManager {
     static int PACKAGES_AMOUNT = 6;
     static String[] packageHeaders = new String[PACKAGES_AMOUNT];
     
-    public static void main(String[] args) {
-        ExecutorService executor = Executors.newCachedThreadPool();
-        
-        prepareHeaders();
+    public RouterManager() {
         queue = new PriorityBlockingQueue<Package>();
-        
-        for ( int i = 0; i < PACKAGES_AMOUNT; i++ ) {
-            executor.execute(new Package(packageHeaders[i]));
-        }
-        
-        while ( true ) {
-            if ( !queue.isEmpty() ) {
-                System.out.println("ARRIVED: " + queue.poll().getInfo());
-            }
-        }
+    }
+    
+    private void routePackage(ExecutorService executor, Package p) {
+        executor.execute(p);
     }
     
     private static void prepareHeaders() {
@@ -35,5 +26,26 @@ public class RouterManager {
         packageHeaders[3] = "system: feed";
         packageHeaders[4] = "system: kill";
         packageHeaders[5] = "system: update all humans around the world during this night";
+    }
+    
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        RouterManager router = new RouterManager();
+        
+        prepareHeaders();
+        
+        for ( int i = 0; i < PACKAGES_AMOUNT; i++ ) {
+            router.routePackage(executor, new Package(packageHeaders[i]));
+        }
+        executor.shutdown();
+        
+        int arrived = 0;
+        
+        while ( arrived <= PACKAGES_AMOUNT - 1 ) {
+            if ( !queue.isEmpty() ) {
+                System.out.println(++arrived + "| ARRIVED: "
+                        + queue.poll().getInfo());
+            }
+        }
     }
 }
