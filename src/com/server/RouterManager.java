@@ -1,9 +1,8 @@
-package com.server.router;
+package com.server;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.server.packages.Package;
 
 public class RouterManager {
     

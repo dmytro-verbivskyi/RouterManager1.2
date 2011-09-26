@@ -1,4 +1,4 @@
-package com.server.packages;
+package com.server;
 
 import java.util.Random;
 
