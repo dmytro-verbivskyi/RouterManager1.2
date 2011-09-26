@@ -8,7 +8,7 @@ public class RouterManager {
     
     public static PriorityBlockingQueue<Package> queue;
     
-    static int PACKAGES_AMOUNT = 4;
+    static int PACKAGES_AMOUNT = 6;
     static String[] packageHeaders = new String[PACKAGES_AMOUNT];
     
     public static void main(String[] args) {
@@ -29,9 +29,11 @@ public class RouterManager {
     }
     
     private static void prepareHeaders() {
-        packageHeaders[0] = "small header 1";
-        packageHeaders[1] = "small header 22";
-        packageHeaders[2] = "small header 333";
-        packageHeaders[3] = "small header 4444";
+        packageHeaders[0] = "user: want to eat";
+        packageHeaders[1] = "user: want to sleep";
+        packageHeaders[2] = "user: want to be the luckiest guy in the world";
+        packageHeaders[3] = "system: feed";
+        packageHeaders[4] = "system: kill";
+        packageHeaders[5] = "system: update all humans around the world during this night";
     }
 }

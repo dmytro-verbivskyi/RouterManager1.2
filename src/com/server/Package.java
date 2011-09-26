@@ -20,6 +20,6 @@ public class Package implements Comparable<Package> {
     }
     
     public String getInfo() {
-        return info + "; size: " + size;
+        return "size(" + size + "): " + info;
     }
 }
