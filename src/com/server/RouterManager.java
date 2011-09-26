@@ -2,25 +2,36 @@ package com.server;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.concurrent.PriorityBlockingQueue;
 
 public class RouterManager {
     
+    public static PriorityBlockingQueue<Package> queue;
+    
+    static int PACKAGES_AMOUNT = 4;
+    static String[] packageHeaders = new String[PACKAGES_AMOUNT];
+    
     public static void main(String[] args) {
-        Package pack1 = new Package("small task 1");
-        Package pack2 = new Package("small task 2");
-        Package pack3 = new Package("very big and huge task 1");
+        ExecutorService executor = Executors.newCachedThreadPool();
         
-        System.out.println("Starting Executor");
-        ExecutorService threadExecutor = Executors.newCachedThreadPool();
+        prepareHeaders();
+        queue = new PriorityBlockingQueue<Package>();
         
-        // start threads and place in runnable state
-        threadExecutor.execute(pack1);
-        threadExecutor.execute(pack2);
-        threadExecutor.execute(pack3);
+        for ( int i = 0; i < PACKAGES_AMOUNT; i++ ) {
+            executor.execute(new RoutedPackage(packageHeaders[i]));
+        }
         
-        // shut down worker threads when their tasks complete
-        threadExecutor.shutdown();
-        System.out.println("main ends.\n");
+        while ( true ) {
+            if ( !queue.isEmpty() ) {
+                System.out.println("ARRIVED: " + queue.poll().getInfo());
+            }
+        }
+    }
+    
+    private static void prepareHeaders() {
+        packageHeaders[0] = "small header 1";
+        packageHeaders[1] = "small header 22";
+        packageHeaders[2] = "small header 333";
+        packageHeaders[3] = "small header 4444";
     }
 }
