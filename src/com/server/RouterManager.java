@@ -18,7 +18,7 @@ public class RouterManager {
         queue = new PriorityBlockingQueue<Package>();
         
         for ( int i = 0; i < PACKAGES_AMOUNT; i++ ) {
-            executor.execute(new RoutedPackage(packageHeaders[i]));
+            executor.execute(new Package(packageHeaders[i]));
         }
         
         while ( true ) {
